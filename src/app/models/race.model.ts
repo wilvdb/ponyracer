@@ -1,0 +1,3 @@
+interface RaceModel {
+  name: string;
+}
