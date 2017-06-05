@@ -9,6 +9,6 @@ describe('ponyracer App', () => {
 
   it('should display message saying app works', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('pr works!');
+    expect(page.getParagraphText()).toEqual('Ponyracer');
   });
 });

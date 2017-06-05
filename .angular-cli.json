@@ -19,6 +19,8 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "pr",
       "styles": [
+        "../node_modules/bootstrap/dist/css/bootstrap.min.css",
+        "../node_modules/font-awesome/css/font-awesome.min.css",
         "styles.css"
       ],
       "scripts": [],
@@ -48,6 +50,12 @@
   "test": {
     "karma": {
       "config": "./karma.conf.js"
+    },
+    "codeCoverage": {
+      "exclude": [
+        "src/app/models/*.ts",
+        "src/app/app.module.ts"
+      ]
     }
   },
   "defaults": {
