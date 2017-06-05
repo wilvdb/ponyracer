@@ -5,4 +5,7 @@ export class RaceService {
 
   constructor() { }
 
+  list() {
+    return [{name: 'Lyon'}, {name: 'London'}];
+  }
 }
