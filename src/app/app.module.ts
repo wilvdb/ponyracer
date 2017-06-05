@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
 import { RacesComponent } from './races/races.component';
 
-import { RaceService } from 'race.service.ts';
+import { RaceService } from './race.service';
 
 @NgModule({
   declarations: [
