@@ -1,3 +1,4 @@
+import { RaceModel } from '../models/race.model';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RacesComponent implements OnInit {
 
+  races: RaceModel[];
+
   constructor() { }
 
   ngOnInit() {
+    this.races = [{name: 'Lyon'}, {name: 'London'}];
   }
 
 }
