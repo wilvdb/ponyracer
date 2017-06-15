@@ -9,7 +9,7 @@ export class MenuComponent implements OnInit {
 
   navbarCollapsed = true;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
   }
