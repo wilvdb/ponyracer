@@ -1,4 +1,6 @@
 import { TestBed } from '@angular/core/testing';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
 
 import { AppModule } from '../app.module';
 import { RacesComponent } from './races.component';
@@ -14,13 +16,13 @@ describe('RacesComponent', () => {
   }));
 
   it('should display every race name in a title', () => {
-    service.list.and.returnValue([
+    service.list.and.returnValue(Observable.of([
       {name: 'Lyon'},
       {name: 'Los Angeles'},
       {name: 'Sydney'},
       {name: 'Tokyo'},
       {name: 'Casablanca'}
-    ]);
+    ]));
 
     const fixture = TestBed.createComponent(RacesComponent);
     fixture.detectChanges();
