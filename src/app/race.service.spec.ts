@@ -16,7 +16,10 @@ describe('RaceService', () => {
   it('should list races', async(() => {
     const observable = service.list();
     observable.subscribe((races: Array<RaceModel>) => {
-      expect(races.length).toBe(5, 'The service should return five races in an Observable for the `list()` method');
+      expect(races.length).toBe(2, 'The service should return two races');
+      const paris = races[0];
+      expect(paris.name).toBe('Paris');
+      expect(paris.ponies.length).toBe(5, 'The races should include the ponies');
     });
   }));
 
