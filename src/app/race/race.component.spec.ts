@@ -1,7 +1,9 @@
 import { TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 
 import { AppModule } from '../app.module';
 import { RaceComponent } from './race.component';
+import { PonyComponent } from '../pony/pony.component';
 
 describe('RaceComponent', () => {
 
@@ -35,12 +37,8 @@ describe('RaceComponent', () => {
     const raceName = element.querySelector('h2');
     expect(raceName).not.toBeNull('You need an h2 element for the race name');
     expect(raceName.textContent).toContain('Paris', 'The h2 element should contain the race name');
-    const ponies = element.querySelectorAll('li');
-    expect(ponies.length).toBe(5, 'You should have one li elements per pony');
-    expect(ponies[0].textContent).toContain('Gentle Pie');
-    expect(ponies[1].textContent).toContain('Big Soda');
-    expect(ponies[2].textContent).toContain('Gentle Bottle');
-    expect(ponies[3].textContent).toContain('Superb Whiskey');
-    expect(ponies[4].textContent).toContain('Fast Rainbow');
+    const directives = fixture.debugElement.queryAll(By.directive(PonyComponent));
+    expect(directives).not.toBeNull('You should use the PonyComponent in your template to display the ponies');
+    expect(directives.length).toBe(5, 'You should have five pony components in your template');
   });
 });
