@@ -1,3 +1,6 @@
-<p>
-  race works!
-</p>
+<div>
+  <h2>{{raceModel.name}}</h2>
+  <ul *ngFor="let poney of raceModel.ponies">
+    <li>{{poney.name}}</li>
+  </ul>
+</div>

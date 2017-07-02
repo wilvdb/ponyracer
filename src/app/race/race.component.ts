@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
+import { RaceModel } from '../models/race.model';
 
 @Component({
   selector: 'pr-race',
@@ -6,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./race.component.css']
 })
 export class RaceComponent implements OnInit {
+
+  @Input() raceModel: RaceModel;
 
   constructor() { }
 
