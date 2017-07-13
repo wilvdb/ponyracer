@@ -1,1 +1,1 @@
-{"pack":"18","id":8,"title":"Http","specs":[{"name":"src/app/race.service.spec.ts","hash":"7e0895f31e5da1a4e6f955375e0ea67ac6a702a3"}]}
+{"pack":"18","id":9,"title":"Custom pipe with Moment.js","specs":[{"name":"src/app/from-now.pipe.spec.ts","hash":"2a81a6be410e551bc16d82b3ca6da446c8ba6ca8"},{"name":"src/app/race/race.component.spec.ts","hash":"9d7b6867ea3055c0ff589792faae86b23f9e20b1"}]}
