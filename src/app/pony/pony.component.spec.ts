@@ -1,4 +1,5 @@
 import { async, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { AppModule } from '../app.module';
 import { PonyComponent } from './pony.component';
@@ -6,7 +7,7 @@ import { PonyComponent } from './pony.component';
 describe('PonyComponent', () => {
 
   beforeEach(() => TestBed.configureTestingModule({
-    imports: [AppModule]
+    imports: [AppModule, RouterTestingModule]
   }));
 
   it('should have method to get the image URL', () => {
