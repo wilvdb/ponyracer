@@ -1,1 +1,3 @@
-<pr-race *ngFor="let race of races | slice:0:4" [raceModel]="race"></pr-race>
+<div *ngFor="let race of races | slice:0:4">
+  <pr-race [raceModel]="race"></pr-race>
+</div>
