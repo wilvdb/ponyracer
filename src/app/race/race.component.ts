@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { RaceModel } from '../models/race.model';
 
@@ -11,7 +11,7 @@ export class RaceComponent implements OnInit {
 
   @Input() raceModel: RaceModel;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
   }

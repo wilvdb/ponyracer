@@ -1,9 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-
-import { PoneyModel } from '../models/poney.model';
+import { PonyModel } from '../models/pony.model';
 
 @Component({
   selector: 'pr-pony',
@@ -12,19 +9,19 @@ import { PoneyModel } from '../models/poney.model';
 })
 export class PonyComponent implements OnInit {
 
-  @Input() ponyModel: PoneyModel;
-  @Output() ponyClicked = new EventEmitter<PoneyModel>();
+  @Input() ponyModel: PonyModel;
+  @Output() ponyClicked = new EventEmitter<PonyModel>();
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
   }
 
-  getPonyImageUrl(): string {
+  getPonyImageUrl() {
     return `assets/images/pony-${this.ponyModel.color.toLowerCase()}.gif`;
   }
 
-  clicked(): void {
+  clicked() {
     this.ponyClicked.emit(this.ponyModel);
   }
 
