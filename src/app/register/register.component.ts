@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'pr-register',
@@ -7,9 +8,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor() { }
+  userForm: FormGroup;
+  loginCtrl: FormControl;
+  passwordCtrl: FormControl;
+  birthYearCtrl: FormControl;
 
-  ngOnInit() {
+  constructor(private builder: FormBuilder) {
   }
 
+  ngOnInit() {
+    this.loginCtrl = this.builder.control('', [ Validators.required ]);
+    this.passwordCtrl = this.builder.control('', [ Validators.required ]);
+    this.birthYearCtrl = this.builder.control('', [ Validators.required ]);
+    this.userForm = this.builder.group({
+      login: this.loginCtrl,
+      password: this.passwordCtrl,
+      birthYear: this.birthYearCtrl
+      });
+  }
+
+  register() {
+
+  }
 }

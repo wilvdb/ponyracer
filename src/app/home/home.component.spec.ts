@@ -25,16 +25,19 @@ describe('HomeComponent', () => {
     expect(subtitle.textContent).toContain('Always a pleasure to bet on ponies');
   });
 
-  it('display a link to go the races', () => {
+  it('display a link to go the races and another to register', () => {
     const fixture = TestBed.createComponent(HomeComponent);
     const element = fixture.nativeElement;
 
     fixture.detectChanges();
 
-    const button = element.querySelector('a');
-    expect(button).not.toBeNull('You should have an `a` element to display the link to the races');
+    const button = element.querySelector('a[href="/races"]');
+    expect(button).not.toBeNull('You should have an `a` element to display the link to the races. Maybe you forgot to use `routerLink`?');
     expect(button.textContent).toContain('Races', 'The link should have a text');
-    expect(button.getAttribute('href')).toBe('/races', 'The URL of the link is not correct. Maybe you forgot to use `routerLink`?');
-  });
 
+    const buttonRegister = element.querySelector('a[href="/register"]');
+    expect(buttonRegister)
+      .not.toBeNull('You should have an `a` element to display the link to the register page. Maybe you forgot to use `routerLink`?');
+    expect(buttonRegister.textContent).toContain('Register', 'The link should have a text');
+  });
 });
