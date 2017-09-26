@@ -1,7 +1,5 @@
-import { async, TestBed } from '@angular/core/testing';
-import { BaseRequestOptions, Http, RequestMethod, Response, ResponseOptions } from '@angular/http';
-import { MockBackend, MockConnection } from '@angular/http/testing';
-import 'rxjs/add/observable/of';
+import { TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { RaceService } from './race.service';
 import { RaceModel } from './models/race.model';
@@ -9,41 +7,29 @@ import { RaceModel } from './models/race.model';
 describe('RaceService', () => {
 
   let raceService: RaceService;
-  let mockBackend: MockBackend;
+  let http: HttpTestingController;
 
   beforeEach(() => TestBed.configureTestingModule({
-    providers: [
-      MockBackend,
-      BaseRequestOptions,
-      {
-        provide: Http,
-        useFactory: (backend, defaultOptions) => new Http(backend, defaultOptions),
-        deps: [MockBackend, BaseRequestOptions]
-      },
-      RaceService
-    ]
+    imports: [HttpClientTestingModule],
+    providers: [RaceService]
   }));
 
   beforeEach(() => {
     raceService = TestBed.get(RaceService);
-    mockBackend = TestBed.get(MockBackend);
+    http = TestBed.get(HttpTestingController);
   });
 
-  it('should return an Observable of 3 races', async(() => {
+  it('should return an Observable of 3 races', () => {
     // fake response
     const hardcodedRaces = [{ name: 'Paris' }, { name: 'Tokyo' }, { name: 'Lyon' }];
-    const response = new Response(new ResponseOptions({ body: hardcodedRaces }));
-    // return the response if we have a connection to the MockBackend
-    mockBackend.connections.subscribe((connection: MockConnection) => {
-      expect(connection.request.url)
-        .toBe('http://ponyracer.ninja-squad.com/api/races?status=PENDING', 'The URL requested is not correct');
-      expect(connection.request.method).toBe(RequestMethod.Get);
-      connection.mockRespond(response);
-    });
 
-    raceService.list().subscribe((races: Array<RaceModel>) => {
-      expect(races.length).toBe(3, 'The `list` method should return an array of RaceModel wrapped in an Observable');
-    });
-  }));
+    let actualRaces = [];
+    raceService.list().subscribe((races: Array<RaceModel>) => actualRaces = races);
+
+    http.expectOne('http://ponyracer.ninja-squad.com/api/races?status=PENDING')
+      .flush(hardcodedRaces);
+
+    expect(actualRaces).toEqual(hardcodedRaces, 'The `list` method should return an array of RaceModel wrapped in an Observable');
+  });
 
 });
