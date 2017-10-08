@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { UserService } from '../user.service';
 
@@ -9,18 +10,25 @@ import { UserService } from '../user.service';
 })
 export class LoginComponent implements OnInit {
 
-  authenticationFailed: boolean;
-  credentials: { login: ''; password: '' };
+  credentials = {
+    login: '',
+    password: ''
+  };
+  authenticationFailed = false;
 
-  constructor(private userService: UserService) { }
+  constructor(private router: Router, private userService: UserService) {
+  }
 
   ngOnInit() {
   }
 
   authenticate() {
-    this.userService.authenticate(this.credentials).subscribe(
-      () => this.authenticationFailed = true
-    );
+    this.authenticationFailed = false;
+    this.userService.authenticate(this.credentials)
+      .subscribe(
+        () => this.router.navigate(['/']),
+        () => this.authenticationFailed = true
+      );
   }
 
 }
