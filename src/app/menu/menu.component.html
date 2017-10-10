@@ -7,5 +7,12 @@
     <div class="nav navbar-nav mr-auto">
       <a class="nav-item nav-link" routerLink="/races">Races</a>
     </div>
+    <div class="nav navbar-nav">
+      <span class="nav-item navbar-text mr-2">
+        {{ user.login }}
+        <span class="fa fa-star"></span>
+        {{ user.money }}
+      </span>
+    </div>
   </div>
 </nav>
