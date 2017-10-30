@@ -71,7 +71,13 @@ describe('MenuComponent', () => {
     fixture.detectChanges();
 
     const links = fixture.debugElement.queryAll(By.directive(RouterLinkWithHref));
-    expect(links.length).toBe(2, 'You should have two routerLink: one to the races, one to the home');
+    expect(links.length).toBe(1, 'You should have only one routerLink to the home when the user is not logged');
+
+    fixture.componentInstance.user = { login: 'cedric', money: 200 } as UserModel;
+    fixture.detectChanges();
+
+    const linksAfterLogin = fixture.debugElement.queryAll(By.directive(RouterLinkWithHref));
+    expect(linksAfterLogin.length).toBe(2, 'You should have two routerLink: one to the races, one to the home when the user is logged');
   });
 
   it('should listen to userEvents in ngOnInit', async(() => {

@@ -5,10 +5,10 @@
   <a class="navbar-brand" routerLink="/">PonyRacer</a>
   <div id="navbar" class="navbar-collapse" [class.collapse]="navbarCollapsed">
     <div class="nav navbar-nav mr-auto">
-      <a class="nav-item nav-link" routerLink="/races">Races</a>
+      <a class="nav-item nav-link" *ngIf="user" routerLink="/races">Races</a>
     </div>
     <div class="nav navbar-nav">
-      <span class="nav-item navbar-text mr-2">
+      <span class="nav-item navbar-text mr-2" *ngIf="user">
         {{ user.login }}
         <span class="fa fa-star"></span>
         {{ user.money }}
