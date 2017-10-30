@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
 
@@ -9,7 +9,7 @@ import { UserModel } from './models/user.model';
 @Injectable()
 export class UserService {
 
-  public userEvents = new Subject<UserModel>();
+  public userEvents = new BehaviorSubject<UserModel>(undefined);
 
   constructor(private http: HttpClient) {
   }
