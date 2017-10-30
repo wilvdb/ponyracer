@@ -20,7 +20,7 @@
         <div *ngIf="passwordCtrl.control.dirty && passwordCtrl.control.hasError('required')">Password is required</div>
       </div>
 
-      <button class="btn btn-primary" type="submit" [disabled]="!loginForm.valid">Log me in!</button>
+      <button class="btn btn-primary" type="submit" [disabled]="loginForm.invalid">Log me in!</button>
     </form>
   </div>
 </div>
