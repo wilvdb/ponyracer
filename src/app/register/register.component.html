@@ -13,7 +13,7 @@
         <label for="login" id="login-label">Login</label>
         <input id="login" class="form-control" formControlName="login">
         <div id="login-warning" *ngIf="loginCtrl.dirty && loginCtrl.hasError('required')">Login is required</div>
-        <div id="login-length-error" *ngIf="loginCtrl.dirty && loginCtrl.hasError('minlength')">Your login should be at 3 characters</div>
+        <div id="login-length-error" *ngIf="loginCtrl.dirty && loginCtrl.hasError('minlength')">Your login should be at least 3 characters</div>
       </div>
 
       <div formGroupName="passwordForm">
@@ -37,7 +37,7 @@
         <div id="invalid-year-error" *ngIf="birthYearCtrl.dirty && birthYearCtrl.hasError('invalidYear')">This is not a valid year</div>
       </div>
 
-      <button class="btn btn-primary" type="submit" [disabled]="!userForm.valid">Let's Go!</button>
+      <button class="btn btn-primary" type="submit" [disabled]="userForm.invalid">Let's Go!</button>
     </form>
   </div>
 </div>

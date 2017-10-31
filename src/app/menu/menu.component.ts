@@ -1,9 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
-import { UserService } from '../user.service';
-
 import { UserModel } from '../models/user.model';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'pr-menu',
@@ -17,7 +16,8 @@ export class MenuComponent implements OnInit, OnDestroy {
   user: UserModel;
   userEventsSubscription: Subscription;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) {
+  }
 
   ngOnInit() {
     this.userEventsSubscription = this.userService.userEvents.subscribe(user => this.user = user);
