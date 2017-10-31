@@ -2,11 +2,13 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { UserService } from './user.service';
+import { JwtInterceptorService } from './jwt-interceptor.service';
 
 describe('UserService', () => {
 
   let userService: UserService;
   let http: HttpTestingController;
+  let jwtInterceptorService: JwtInterceptorService;
   const originalLocalStorage = window.localStorage;
   const mockLocalStorage = {
     setItem: (key, value) => {},
@@ -24,12 +26,13 @@ describe('UserService', () => {
 
   beforeEach(() => TestBed.configureTestingModule({
     imports: [HttpClientTestingModule],
-    providers: [UserService]
+    providers: [UserService, JwtInterceptorService]
   }));
 
   beforeEach(() => {
     userService = TestBed.get(UserService);
     http = TestBed.get(HttpTestingController);
+    jwtInterceptorService = TestBed.get(JwtInterceptorService);
     // we use this instead of jasmine.spyOn to make it pass on Firefox
     // https://github.com/jasmine/jasmine/issues/299
     Object.defineProperty(window, 'localStorage', { value: mockLocalStorage });
@@ -67,20 +70,24 @@ describe('UserService', () => {
   it('should store the logged in user', () => {
     spyOn(userService.userEvents, 'next');
     spyOn(mockLocalStorage, 'setItem');
+    spyOn(jwtInterceptorService, 'setJwtToken');
 
     userService.storeLoggedInUser(user);
 
     expect(userService.userEvents.next).toHaveBeenCalledWith(user);
     expect(mockLocalStorage.setItem).toHaveBeenCalledWith('rememberMe', JSON.stringify(user));
+    expect(jwtInterceptorService.setJwtToken).toHaveBeenCalledWith(user.token);
   });
 
   it('should retrieve a user if one is stored', () => {
     spyOn(userService.userEvents, 'next');
     spyOn(mockLocalStorage, 'getItem').and.returnValue(JSON.stringify(user));
+    spyOn(jwtInterceptorService, 'setJwtToken');
 
     userService.retrieveUser();
 
     expect(userService.userEvents.next).toHaveBeenCalledWith(user);
+    expect(jwtInterceptorService.setJwtToken).toHaveBeenCalledWith(user.token);
   });
 
   it('should retrieve no user if none stored', () => {
@@ -95,10 +102,12 @@ describe('UserService', () => {
   it('should logout the user', () => {
     spyOn(userService.userEvents, 'next');
     spyOn(mockLocalStorage, 'removeItem');
+    spyOn(jwtInterceptorService, 'removeJwtToken');
 
     userService.logout();
 
     expect(userService.userEvents.next).toHaveBeenCalledWith(null);
     expect(mockLocalStorage.removeItem).toHaveBeenCalledWith('rememberMe');
+    expect(jwtInterceptorService.removeJwtToken).toHaveBeenCalled();
   });
 });
