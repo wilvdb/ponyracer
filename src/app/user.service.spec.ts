@@ -91,4 +91,14 @@ describe('UserService', () => {
 
     expect(userService.userEvents.next).not.toHaveBeenCalled();
   });
+
+  it('should logout the user', () => {
+    spyOn(userService.userEvents, 'next');
+    spyOn(mockLocalStorage, 'removeItem');
+
+    userService.logout();
+
+    expect(userService.userEvents.next).toHaveBeenCalledWith(null);
+    expect(mockLocalStorage.removeItem).toHaveBeenCalledWith('rememberMe');
+  });
 });
