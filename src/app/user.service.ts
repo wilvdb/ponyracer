@@ -38,4 +38,9 @@ export class UserService {
     }
   }
 
+  logout() {
+    window.localStorage.removeItem('rememberMe');
+    this.userEvents.next(null);
+  }
+
 }
