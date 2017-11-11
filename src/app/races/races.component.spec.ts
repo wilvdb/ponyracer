@@ -44,4 +44,17 @@ describe('RacesComponent', () => {
     const raceNames = debugElement.queryAll(By.directive(RaceComponent));
     expect(raceNames.length).toBe(4, 'You should have four `RaceComponent` displayed, use the `slice` pipe');
   });
+
+  it('should display a link to bet on a race', () => {
+    const fixture = TestBed.createComponent(RacesComponent);
+    fixture.detectChanges();
+
+    const element = fixture.nativeElement;
+    const raceNames = element.querySelectorAll('a');
+    expect(raceNames.length).toBe(4, 'You must have a link to go to the bet page for each race');
+    expect(raceNames[0].textContent).toContain('Bet on Lyon');
+    expect(raceNames[1].textContent).toContain('Bet on Los Angeles');
+    expect(raceNames[2].textContent).toContain('Bet on Sydney');
+    expect(raceNames[3].textContent).toContain('Bet on Tokyo');
+  });
 });
