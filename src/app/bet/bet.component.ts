@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { RaceService } from '../race.service';
-
 import { RaceModel } from '../models/race.model';
 import { PonyModel } from '../models/pony.model';
 
@@ -16,7 +15,8 @@ export class BetComponent implements OnInit {
   raceModel: RaceModel;
   betFailed = false;
 
-  constructor(private route: ActivatedRoute, private raceService: RaceService) { }
+  constructor(private raceService: RaceService, private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
     const raceId = this.route.snapshot.paramMap.get('raceId');
@@ -25,15 +25,15 @@ export class BetComponent implements OnInit {
   }
 
   betOnPony(pony: PonyModel) {
-   this.raceService.bet(this.raceModel.id, pony.id)
-     .subscribe(
-       race => this.raceModel = race,
-       () => this.betFailed = true
-     );
- }
+    this.raceService.bet(this.raceModel.id, pony.id)
+      .subscribe(
+        race => this.raceModel = race,
+        () => this.betFailed = true
+      );
+  }
 
- isPonySelected(pony: PonyModel) {
-   return pony.id === this.raceModel.betPonyId;
- }
+  isPonySelected(pony: PonyModel) {
+    return pony.id === this.raceModel.betPonyId;
+  }
 
 }

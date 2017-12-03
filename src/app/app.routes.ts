@@ -8,11 +8,13 @@ import { BetComponent } from './bet/bet.component';
 
 export const ROUTES: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'races',
+  {
+    path: 'races',
     children: [
       { path: '', component: RacesComponent },
       { path: ':raceId', component: BetComponent }
-    ] },
+    ]
+  },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent }
 ];
