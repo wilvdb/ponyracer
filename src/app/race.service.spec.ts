@@ -63,4 +63,13 @@ describe('RaceService', () => {
     expect(actualRace).toBe(race, 'The observable must emit the race');
   });
 
+  it('should cancel a bet on a race', () => {
+    const raceId = 1;
+
+    raceService.cancelBet(raceId).subscribe(() => {});
+
+    http.expectOne({ method: 'DELETE', url: `${environment.baseUrl}/api/races/${raceId}/bets` })
+      .flush(null);
+  });
+
 });
