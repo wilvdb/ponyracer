@@ -23,4 +23,8 @@ export class RaceService {
     return this.http.post<RaceModel>(`${environment.baseUrl}/api/races/${raceId}/bets`, { ponyId });
   }
 
+  cancelBet(raceId): Observable<any> {
+    return this.http.delete(`${environment.baseUrl}/api/races/${raceId}/bets`);
+  }
+
 }
