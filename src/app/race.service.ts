@@ -15,4 +15,12 @@ export class RaceService {
     return this.http.get<Array<RaceModel>>(environment.baseUrl + '/api/races', { params });
   }
 
+  get(raceId): Observable<RaceModel> {
+    return this.http.get<RaceModel>(`${environment.baseUrl}/api/races/${raceId}`);
+  }
+
+  bet(raceId, ponyId): Observable<RaceModel> {
+    return this.http.post<RaceModel>(`${environment.baseUrl}/api/races/${raceId}/bets`, { ponyId });
+  }
+
 }
