@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -30,7 +30,7 @@ describe('RegisterComponent', () => {
   });
 
   it('should call the register method on submit', () => {
-    const fixture = TestBed.createComponent(RegisterComponent);
+    const fixture: ComponentFixture<RegisterComponent> = TestBed.createComponent(RegisterComponent);
     spyOn(fixture.componentInstance, 'register');
 
     fixture.detectChanges();
@@ -42,7 +42,7 @@ describe('RegisterComponent', () => {
   });
 
   it('should display a form to register', () => {
-    const fixture = TestBed.createComponent(RegisterComponent);
+    const fixture: ComponentFixture<RegisterComponent> = TestBed.createComponent(RegisterComponent);
     fixture.detectChanges();
 
     // given a form
@@ -104,7 +104,7 @@ describe('RegisterComponent', () => {
   });
 
   it('should expect a login with 3 characters', () => {
-    const fixture = TestBed.createComponent(RegisterComponent);
+    const fixture: ComponentFixture<RegisterComponent> = TestBed.createComponent(RegisterComponent);
     fixture.detectChanges();
 
     // given a form
@@ -162,7 +162,7 @@ describe('RegisterComponent', () => {
   });
 
   it('should have a password confirmation', () => {
-    const fixture = TestBed.createComponent(RegisterComponent);
+    const fixture: ComponentFixture<RegisterComponent> = TestBed.createComponent(RegisterComponent);
     fixture.detectChanges();
 
     // given a form
@@ -247,7 +247,7 @@ describe('RegisterComponent', () => {
   });
 
   it('should call the user service to register', () => {
-    const fixture = TestBed.createComponent(RegisterComponent);
+    const fixture: ComponentFixture<RegisterComponent> = TestBed.createComponent(RegisterComponent);
     fixture.detectChanges();
 
     // given a form completed
@@ -266,7 +266,7 @@ describe('RegisterComponent', () => {
   });
 
   it('should display an error message if registration fails', () => {
-    const fixture = TestBed.createComponent(RegisterComponent);
+    const fixture: ComponentFixture<RegisterComponent> = TestBed.createComponent(RegisterComponent);
     fixture.detectChanges();
 
     // given a form completed

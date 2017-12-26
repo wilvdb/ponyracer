@@ -13,7 +13,9 @@
         <span class="fa fa-star"></span>
         {{ user.money }}
       </span>
-      <a class="nav-item nav-link" (click)="logout($event)"><span class="fa fa-power-off"></span></a>
+      <a (click)="logout($event)" class="nav-item nav-link" href="#" *ngIf="user">
+        <span class="fa fa-power-off"></span>
+      </a>
     </div>
   </div>
 </nav>

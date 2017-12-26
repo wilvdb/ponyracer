@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { ROUTES } from './app.routes';
@@ -18,6 +18,7 @@ import { UserService } from './user.service';
 import { LoginComponent } from './login/login.component';
 import { JwtInterceptorService } from './jwt-interceptor.service';
 import { BetComponent } from './bet/bet.component';
+import { LiveComponent } from './live/live.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { BetComponent } from './bet/bet.component';
     HomeComponent,
     RegisterComponent,
     LoginComponent,
-    BetComponent
+    BetComponent,
+    LiveComponent
   ],
   imports: [
     BrowserModule,
