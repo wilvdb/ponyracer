@@ -4,8 +4,6 @@ export interface PonyModel {
   color: string;
 }
 
-
 export interface PonyWithPositionModel extends PonyModel {
   position: number;
-
 }
