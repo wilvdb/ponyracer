@@ -3,8 +3,10 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import * as Webstomp from 'webstomp-client';
 
 import { ROUTES } from './app.routes';
+import { WEBSOCKET, WEBSTOMP } from './app.tokens';
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
 import { RacesComponent } from './races/races.component';
@@ -19,6 +21,7 @@ import { LoginComponent } from './login/login.component';
 import { JwtInterceptorService } from './jwt-interceptor.service';
 import { BetComponent } from './bet/bet.component';
 import { LiveComponent } from './live/live.component';
+import { WsService } from './ws.service';
 
 @NgModule({
   declarations: [
@@ -45,7 +48,10 @@ import { LiveComponent } from './live/live.component';
     RaceService,
     UserService,
     JwtInterceptorService,
-    { provide: HTTP_INTERCEPTORS, useExisting: JwtInterceptorService, multi: true }
+    { provide: HTTP_INTERCEPTORS, useExisting: JwtInterceptorService, multi: true },
+    WsService,
+    { provide: WEBSOCKET, useFactory: () => WebSocket },
+    { provide: WEBSTOMP, useFactory: () => Webstomp }
   ],
   bootstrap: [AppComponent]
 })
