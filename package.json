@@ -26,6 +26,7 @@
     "font-awesome": "4.7.0",
     "moment": "2.19.3",
     "rxjs": "5.5.5",
+    "webstomp-client": "1.2.0",
     "zone.js": "0.8.18"
   },
   "devDependencies": {
