@@ -1,3 +1,6 @@
-<p>
-  live works!
-</p>
+<div>
+  <h2>{{raceModel?.name}}</h2>
+  <div class="pony-wrapper" *ngFor="let pony of poniesWithPosition" [style.marginLeft.%]="pony.position - 10">
+    <pr-pony [ponyModel]="pony" isRunning="true"></pr-pony>
+  </div>
+</div>
