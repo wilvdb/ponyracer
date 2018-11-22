@@ -34,7 +34,9 @@
         <label for="birthYear">Birth year</label>
         <input id="birthYear" class="form-control" type="number" formControlName="birthYear">
         <div *ngIf="birthYearCtrl.dirty && birthYearCtrl.hasError('required')">Birth year is required</div>
-        <div id="invalid-year-error" *ngIf="birthYearCtrl.dirty && birthYearCtrl.hasError('invalidYear')">This is not a valid year</div>
+        <div id="invalid-year-error" *ngIf="birthYearCtrl.dirty && (birthYearCtrl.hasError('min') || birthYearCtrl.hasError('max'))">
+          This is not a valid year
+        </div>
       </div>
 
       <button class="btn btn-primary" type="submit" [disabled]="userForm.invalid">Let's Go!</button>

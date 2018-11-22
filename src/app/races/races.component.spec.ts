@@ -1,8 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
+import { of } from 'rxjs';
 
 import { AppModule } from '../app.module';
 import { RacesComponent } from './races.component';
@@ -19,7 +18,7 @@ describe('RacesComponent', () => {
   }));
 
   it('should display every race name in a title', () => {
-    service.list.and.returnValue(Observable.of([
+    service.list.and.returnValue(of([
       { name: 'Lyon' },
       { name: 'Los Angeles' },
       { name: 'Sydney' },
@@ -46,6 +45,14 @@ describe('RacesComponent', () => {
   });
 
   it('should display a link to bet on a race', () => {
+    service.list.and.returnValue(of([
+      { name: 'Lyon' },
+      { name: 'Los Angeles' },
+      { name: 'Sydney' },
+      { name: 'Tokyo' },
+      { name: 'Casablanca' }
+    ]));
+
     const fixture = TestBed.createComponent(RacesComponent);
     fixture.detectChanges();
 

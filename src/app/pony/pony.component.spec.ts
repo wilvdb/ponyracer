@@ -3,6 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { AppModule } from '../app.module';
 import { PonyComponent } from './pony.component';
+import { PonyModel } from '../models/pony.model';
 
 describe('PonyComponent', () => {
 
@@ -51,7 +52,7 @@ describe('PonyComponent', () => {
     const ponyComponent: PonyComponent = fixture.componentInstance;
     ponyComponent.ponyModel = { id: 1, name: 'Fast Rainbow', color: 'PURPLE' };
 
-    ponyComponent.ponyClicked.subscribe((pony) => {
+    ponyComponent.ponyClicked.subscribe((pony: PonyModel) => {
       expect(pony).toBe(ponyComponent.ponyModel, 'The output should emit the `ponyModel` on a click');
       ponyClickedCalled = true;
     });

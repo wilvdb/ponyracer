@@ -2,9 +2,7 @@ import { async, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute, convertToParamMap } from '@angular/router';
 import { By } from '@angular/platform-browser';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/observable/throw';
+import { of, throwError } from 'rxjs';
 
 import { AppModule } from '../app.module';
 import { RaceService } from '../race.service';
@@ -16,7 +14,7 @@ import { PonyModel } from '../models/pony.model';
 describe('BetComponent', () => {
   const fakeRaceService = jasmine.createSpyObj('RaceService', ['get', 'bet', 'cancelBet']);
   const race = { id: 1, name: 'Paris' } as RaceModel;
-  fakeRaceService.get.and.returnValue(Observable.of(race));
+  fakeRaceService.get.and.returnValue(of(race));
   const fakeActivatedRoute = { snapshot: { paramMap: convertToParamMap({ raceId: 1 }) } };
 
   beforeEach(() => TestBed.configureTestingModule({
@@ -66,7 +64,7 @@ describe('BetComponent', () => {
     const fixture = TestBed.createComponent(BetComponent);
     fixture.detectChanges();
 
-    fakeRaceService.bet.and.returnValue(Observable.of({
+    fakeRaceService.bet.and.returnValue(of({
       id: 12,
       name: 'Paris',
       ponies: [
@@ -137,7 +135,7 @@ describe('BetComponent', () => {
 
   it('should display an error message if bet failed', () => {
     const fixture = TestBed.createComponent(BetComponent);
-    fakeRaceService.bet.and.callFake(() => Observable.throw(new Error('Oops')));
+    fakeRaceService.bet.and.callFake(() => throwError(new Error('Oops')));
 
     const component = fixture.componentInstance;
     component.raceModel = { id: 2 } as RaceModel;
@@ -157,7 +155,7 @@ describe('BetComponent', () => {
 
   it('should cancel a bet', () => {
     const fixture = TestBed.createComponent(BetComponent);
-    fakeRaceService.cancelBet.and.returnValue(Observable.of(null));
+    fakeRaceService.cancelBet.and.returnValue(of(null));
 
     const component = fixture.componentInstance;
     component.raceModel = { id: 2, betPonyId: 1, name: 'Lyon', ponies: [], startInstant: '2016-02-18T08:02:00Z' };
@@ -173,7 +171,7 @@ describe('BetComponent', () => {
     const fixture = TestBed.createComponent(BetComponent);
     fixture.detectChanges();
 
-    fakeRaceService.cancelBet.and.callFake(() => Observable.throw(new Error('Oops')));
+    fakeRaceService.cancelBet.and.callFake(() => throwError(new Error('Oops')));
 
     const component = fixture.componentInstance;
     component.raceModel = { id: 2, betPonyId: 1, name: 'Lyon', ponies: [], startInstant: '2016-02-18T08:02:00Z' };

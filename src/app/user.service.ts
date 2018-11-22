@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/do';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 import { environment } from '../environments/environment';
 import { UserModel } from './models/user.model';
 import { JwtInterceptorService } from './jwt-interceptor.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class UserService {
 
   public userEvents = new BehaviorSubject<UserModel>(undefined);
@@ -17,17 +18,18 @@ export class UserService {
     this.retrieveUser();
   }
 
-  register(login, password, birthYear): Observable<UserModel> {
+  register(login: string, password: string, birthYear: number): Observable<UserModel> {
     const body = { login, password, birthYear };
     return this.http.post<UserModel>(`${environment.baseUrl}/api/users`, body);
   }
 
-  authenticate(credentials): Observable<UserModel> {
-    return this.http.post<UserModel>(`${environment.baseUrl}/api/users/authentication`, credentials)
-      .do(user => this.storeLoggedInUser(user));
+  authenticate(credentials: { login: string; password: string }): Observable<UserModel> {
+    return this.http.post<UserModel>(`${environment.baseUrl}/api/users/authentication`, credentials).pipe(
+      tap(user => this.storeLoggedInUser(user))
+    );
   }
 
-  storeLoggedInUser(user) {
+  storeLoggedInUser(user: UserModel) {
     window.localStorage.setItem('rememberMe', JSON.stringify(user));
     this.jwtInterceptorService.setJwtToken(user.token);
     this.userEvents.next(user);

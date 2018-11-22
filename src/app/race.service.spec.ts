@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 
 import { environment } from '../environments/environment';
 import { RaceService } from './race.service';
@@ -17,8 +17,7 @@ describe('RaceService', () => {
   beforeEach(() => TestBed.configureTestingModule({
     imports: [HttpClientTestingModule],
     providers: [
-      { provide: WsService, useValue: wsService },
-      RaceService
+      { provide: WsService, useValue: wsService }
     ]
   }));
 
@@ -27,17 +26,20 @@ describe('RaceService', () => {
     http = TestBed.get(HttpTestingController);
   });
 
+  afterAll(() => http.verify());
+
   it('should return an Observable of 3 races', () => {
     // fake response
-    const hardcodedRaces = [{ name: 'Paris' }, { name: 'Tokyo' }, { name: 'Lyon' }];
+    const hardcodedRaces = [{ name: 'Paris' }, { name: 'Tokyo' }, { name: 'Lyon' }] as Array<RaceModel>;
 
-    let actualRaces = [];
+    let actualRaces: Array<RaceModel> = [];
     raceService.list().subscribe((races: Array<RaceModel>) => actualRaces = races);
 
     http.expectOne(`${environment.baseUrl}/api/races?status=PENDING`)
       .flush(hardcodedRaces);
 
-    expect(actualRaces).toEqual(hardcodedRaces, 'The `list` method should return an array of RaceModel wrapped in an Observable');
+    expect(actualRaces.length).not.toBe(0, 'The `list` method should return an array of RaceModel wrapped in an Observable');
+    expect(actualRaces).toEqual(hardcodedRaces);
   });
 
   it('should get a race', () => {
@@ -73,10 +75,13 @@ describe('RaceService', () => {
   it('should cancel a bet on a race', () => {
     const raceId = 1;
 
-    raceService.cancelBet(raceId).subscribe(() => {});
+    let called = false;
+    raceService.cancelBet(raceId).subscribe(() => called = true);
 
     http.expectOne({ method: 'DELETE', url: `${environment.baseUrl}/api/races/${raceId}/bets` })
       .flush(null);
+
+    expect(called).toBe(true);
   });
 
   it('should return live positions from websockets', () => {

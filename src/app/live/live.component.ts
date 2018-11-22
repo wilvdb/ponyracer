@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 import { RaceService } from '../race.service';
 import { RaceModel } from '../models/race.model';
@@ -21,7 +21,7 @@ export class LiveComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('raceId');
+    const id = +this.route.snapshot.paramMap.get('raceId');
     this.raceService.get(id).subscribe(race => this.raceModel = race);
     this.positionSubscription = this.raceService.live(id).subscribe(positions => this.poniesWithPosition = positions);
   }

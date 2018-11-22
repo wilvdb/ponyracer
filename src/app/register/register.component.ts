@@ -25,13 +25,6 @@ export class RegisterComponent implements OnInit {
     return password !== confirmPassword ? { matchingError: true } : null;
   }
 
-  static validYear(control: FormControl) {
-    const birthYear = control.value;
-    return Number.isNaN(birthYear) ||
-    birthYear < 1900 ||
-    birthYear > new Date().getFullYear() ? { invalidYear: true } : null;
-  }
-
   constructor(private fb: FormBuilder, private userService: UserService, private router: Router) {
   }
 
@@ -45,7 +38,11 @@ export class RegisterComponent implements OnInit {
     }, {
       validator: RegisterComponent.passwordMatch
     });
-    this.birthYearCtrl = this.fb.control('', [Validators.required, RegisterComponent.validYear]);
+    this.birthYearCtrl = this.fb.control('', [
+      Validators.required,
+      Validators.min(1900),
+      Validators.max(new Date().getFullYear())
+    ]);
     this.userForm = this.fb.group({
       login: this.loginCtrl,
       passwordForm: this.passwordForm,

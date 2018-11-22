@@ -19,7 +19,7 @@ export class BetComponent implements OnInit {
   }
 
   ngOnInit() {
-    const raceId = this.route.snapshot.paramMap.get('raceId');
+    const raceId = +this.route.snapshot.paramMap.get('raceId');
     this.raceService.get(raceId)
       .subscribe(race => this.raceModel = race);
   }

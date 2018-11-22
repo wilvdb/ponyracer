@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute, convertToParamMap } from '@angular/router';
 import { By } from '@angular/platform-browser';
-import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs';
 
 import { AppModule } from '../app.module';
 import { LiveComponent } from './live.component';
@@ -12,13 +12,13 @@ import { PonyComponent } from '../pony/pony.component';
 describe('LiveComponent', () => {
 
   const fakeRaceService = jasmine.createSpyObj('RaceService', ['get', 'live']);
-  fakeRaceService.get.and.returnValue(Observable.of({
+  fakeRaceService.get.and.returnValue(of({
     id: 1,
     name: 'Lyon',
     ponies: [],
     startInstant: '2016-02-18T08:02:00Z'
   }));
-  fakeRaceService.live.and.returnValue(Observable.of([]));
+  fakeRaceService.live.and.returnValue(of([]));
   const fakeActivatedRoute = { snapshot: { paramMap: convertToParamMap({ raceId: 1 }) } };
 
   beforeEach(() => TestBed.configureTestingModule({
