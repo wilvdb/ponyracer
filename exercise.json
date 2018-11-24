@@ -1,1 +1,1 @@
-{"pack":"25","id":22,"title":"WebSockets","specs":[{"name":"src/app/race.service.spec.ts","hash":"e4c1862746653ab114b8346ee045ae324adc10f9"},{"name":"src/app/ws.service.spec.ts","hash":"798f3f9236b2309568309d280e678f5d705850b5"}]}
+{"pack":"32","id":22,"title":"WebSockets","specs":[{"name":"src/app/race.service.spec.ts","hash":"1dccf749680849eccdb24f738816325397de647a"},{"name":"src/app/ws.service.spec.ts","hash":"c637e0e3c9b64412b9adaac86031abd33a0176f7"}]}

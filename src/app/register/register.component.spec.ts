@@ -3,9 +3,7 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormControl, FormGroup } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/throw';
-import 'rxjs/add/observable/of';
+import { of, throwError } from 'rxjs';
 
 import { AppModule } from '../app.module';
 import { RegisterComponent } from './register.component';
@@ -38,7 +36,7 @@ describe('RegisterComponent', () => {
 
     expect(fixture.componentInstance.register).toHaveBeenCalled();
     expect((fixture.componentInstance.register as jasmine.Spy).calls.count())
-      .toEqual(1, 'Looks like you are calling register several times!');
+      .toBe(1, 'Looks like you are calling register several times!');
   });
 
   it('should display a form to register', () => {
@@ -208,42 +206,47 @@ describe('RegisterComponent', () => {
     expect(noMatchingErrorMessage).toBe(null, 'Your error message should disappear when there is no error');
   });
 
-  it('should have a custom validator to check the year validity', () => {
-    // given a FormControl without any value
-    let birthYear = new FormControl(null);
+  it('should have min/max validators to check the year validity', () => {
+    const fixture: ComponentFixture<RegisterComponent> = TestBed.createComponent(RegisterComponent);
+    fixture.detectChanges();
 
-    // when validating the form
-    let error = RegisterComponent.validYear(birthYear);
-
-    // then we should have an error
-    expect(error.invalidYear).toBe(true, 'Your `validYear` validator should return an `invalidYear` error if it receives `null`');
+    const componentInstance = fixture.componentInstance;
+    const birthYearCtrl = componentInstance.birthYearCtrl;
+    const nativeElement = fixture.nativeElement;
+    const birthYear = nativeElement.querySelector('[type="number"]');
 
     // given an invalid value in the past
-    birthYear = new FormControl(1899);
-
-    // when validating the form
-    error = RegisterComponent.validYear(birthYear);
+    birthYear.value = 1899;
+    birthYear.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
 
     // then we should have an error
-    expect(error.invalidYear).toBe(true, 'Your `validYear` validator should return an `invalidYear` error if it receives `1899`');
+    expect(birthYearCtrl.hasError('min')).toBe(true, '`birthYearCtrl` should have a `min` validator set to 1900');
+    let invalidYearError = nativeElement.querySelector('#invalid-year-error');
+    expect(invalidYearError).not.toBeNull('A div with the id `invalid-year-error` must be displayed if the year is before 1900');
+    expect(invalidYearError.textContent).toContain('This is not a valid year');
 
     // given an invalid value in the future
-    birthYear = new FormControl(new Date().getFullYear() + 1);
-
-    // when validating the form
-    error = RegisterComponent.validYear(birthYear);
+    birthYear.value = new Date().getFullYear() + 1;
+    birthYear.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
 
     // then we should have an error
-    expect(error.invalidYear).toBe(true, 'Your `validYear` validator should return an `invalidYear` error if it receives next year');
+    expect(birthYearCtrl.hasError('max')).toBe(true, '`birthYearCtrl` should have a `max` validator set to the next year');
+    invalidYearError = nativeElement.querySelector('#invalid-year-error');
+    expect(invalidYearError).not.toBeNull('A div with the id `invalid-year-error` must be displayed if the year is after next year');
+    expect(invalidYearError.textContent).toContain('This is not a valid year');
 
     // given an valid value
-    birthYear = new FormControl(1982);
-
-    // when validating the form
-    error = RegisterComponent.validYear(birthYear);
+    birthYear.value = 1982;
+    birthYear.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
 
     // then we should have no error
-    expect(error).toBe(null, 'Your `validYear` validator should return a `null` error if it receives a valid year');
+    expect(birthYearCtrl.hasError('min')).toBe(false, '`birthYearCtrl` should have a `min` validator set to 1900');
+    invalidYearError = nativeElement.querySelector('#invalid-year-error');
+    expect(birthYearCtrl.hasError('max')).toBe(false, '`birthYearCtrl` should have a `max` validator set to the next year');
+    expect(invalidYearError).toBeNull('A div with the id `invalid-year-error` must not be displayed if the year is valid');
   });
 
   it('should call the user service to register', () => {
@@ -251,7 +254,7 @@ describe('RegisterComponent', () => {
     fixture.detectChanges();
 
     // given a form completed
-    fakeUserService.register.and.returnValue(Observable.of({ id: 1 }));
+    fakeUserService.register.and.returnValue(of({ id: 1 }));
     const component = fixture.componentInstance;
     component.loginCtrl.setValue('Cédric');
     component.passwordCtrl.setValue('password');
@@ -270,7 +273,7 @@ describe('RegisterComponent', () => {
     fixture.detectChanges();
 
     // given a form completed
-    fakeUserService.register.and.callFake(() => Observable.throw(new Error('Oops')));
+    fakeUserService.register.and.callFake(() => throwError(new Error('Oops')));
     const component = fixture.componentInstance;
     component.loginCtrl.setValue('Cédric');
     component.passwordCtrl.setValue('password');

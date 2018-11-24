@@ -2,7 +2,7 @@ import { async, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { RouterLinkWithHref } from '@angular/router';
 import { By } from '@angular/platform-browser';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 
 import { AppModule } from '../app.module';
 import { MenuComponent } from './menu.component';
@@ -40,7 +40,7 @@ describe('MenuComponent', () => {
     menu.toggleNavbar();
 
     expect(menu.navbarCollapsed)
-      .toBe(false, '`toggleNavbar()` should change `navbarCollapsed` from true to false`');
+      .toBe(false, '`toggleNavbar()` should change `navbarCollapsed` from `true` to `false`');
 
     menu.toggleNavbar();
 

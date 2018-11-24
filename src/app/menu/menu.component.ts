@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 import { UserModel } from '../models/user.model';
 import { UserService } from '../user.service';
@@ -34,7 +34,7 @@ export class MenuComponent implements OnInit, OnDestroy {
     this.navbarCollapsed = !this.navbarCollapsed;
   }
 
-  logout(event) {
+  logout(event: Event) {
     event.preventDefault();
     this.userService.logout();
     this.router.navigate(['/']);

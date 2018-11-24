@@ -4,6 +4,7 @@
   ],
   "rules": {
     "arrow-return-shorthand": true,
+    "ban-comma-operator": true,
     "callable-types": true,
     "class-name": true,
     "comment-format": [
@@ -15,12 +16,9 @@
       "severity": "warn"
     },
     "eofline": true,
+    "file-name-casing": [true, "kebab-case"],
     "forin": true,
-    "import-blacklist": [
-      true,
-      "rxjs",
-      "rxjs/Rx"
-    ],
+    "import-blacklist": true,
     "import-spacing": true,
     "indent": [
       true,
@@ -58,13 +56,16 @@
     "no-debugger": true,
     "no-duplicate-imports": true,
     "no-duplicate-super": true,
+    "no-duplicate-switch-case": true,
+    "no-dynamic-delete": true,
     "no-empty": false,
     "no-empty-interface": true,
     "no-eval": true,
+    "no-implicit-dependencies": [true, "dev"],
     "no-import-side-effect": [
       true,
       {
-        "ignore-pattern": "/rxjs.*/"
+        "ignore-module": "(core-js/.*|zone\\.js/.*)$"
       }
     ],
     "no-inferrable-types": [
@@ -73,6 +74,9 @@
     ],
     "no-misused-new": true,
     "no-non-null-assertion": true,
+    "no-parameter-reassignment": true,
+    "no-redundant-jsdoc": true,
+    "no-return-await": true,
     "no-shadowed-variable": true,
     "no-string-literal": false,
     "no-string-throw": true,
@@ -92,6 +96,7 @@
       "check-whitespace"
     ],
     "prefer-const": true,
+    "prefer-while": true,
     "quotemark": [
       true,
       "single"
@@ -115,7 +120,6 @@
         "variable-declaration": "nospace"
       }
     ],
-    "typeof-compare": true,
     "unified-signatures": true,
     "variable-name": false,
     "whitespace": [
@@ -126,32 +130,26 @@
       "check-separator",
       "check-type"
     ],
-    "directive-selector": [
-      true,
-      "attribute",
-      "pr",
-      "camelCase"
-    ],
-    "component-selector": [
-      true,
-      "element",
-      "pr",
-      "kebab-case"
-    ],
     "angular-whitespace": [true, "check-semicolon", "check-interpolation", "check-pipe"],
-    "no-output-on-prefix": true,
     "banana-in-box": true,
-    "contextual-life-cycle": true,
-    "templates-no-negated-async": true,
-    "use-view-encapsulation": true,
-    "use-input-property-decorator": true,
-    "use-output-property-decorator": true,
-    "use-host-property-decorator": true,
-    "no-input-rename": true,
-    "no-output-rename": true,
-    "use-life-cycle-interface": true,
-    "use-pipe-transform-interface": true,
     "component-class-suffix": true,
-    "directive-class-suffix": true
+    "contextual-life-cycle": true,
+    "directive-class-suffix": true,
+    "enforce-component-selector": true,
+    "no-conflicting-life-cycle-hooks": true,
+    "no-input-rename": true,
+    "no-output-on-prefix": true,
+    "no-output-rename": true,
+    "no-queries-parameter": true,
+    "prefer-inline-decorator": true,
+    "template-conditional-complexity": true,
+    "template-cyclomatic-complexity": [true, 10],
+    "templates-no-negated-async": true,
+    "use-host-property-decorator": true,
+    "use-input-property-decorator": true,
+    "use-life-cycle-interface": true,
+    "use-output-property-decorator": true,
+    "use-pipe-transform-interface": true,
+    "use-view-encapsulation": true
   }
 }

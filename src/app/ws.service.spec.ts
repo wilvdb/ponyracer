@@ -24,17 +24,17 @@ describe('WsService', () => {
   it('should connect to a websocket channel', async(() => {
     // given a fake WebSocket connection
     webstomp.over.and.returnValue(webstomp);
-    webstomp.connect.and.callFake((headers, callback) => callback());
-    webstomp.subscribe.and.callFake((channel, callback) => {
+    webstomp.connect.and.callFake((headers: { [key: string]: string }, callback: Function) => callback());
+    webstomp.subscribe.and.callFake((channel: string, callback: Function) => {
       expect(channel).toBe('/channel/2');
-      callback({ body: '{"id": 1}' });
+      callback({ body: '{"id": "1"}' });
     });
 
     // when connecting to a channel
-    const messages = wsService.connect('/channel/2');
+    const messages = wsService.connect<{ id: string }>('/channel/2');
 
     messages.subscribe(message => {
-      expect(message.id).toBe(1);
+      expect(message.id).toBe('1');
     });
 
     // then we should have a WebSocket connection with Stomp protocol
@@ -48,7 +48,9 @@ describe('WsService', () => {
     // when connecting to a channel
     const messages = wsService.connect('/channel/2');
     // with a failed connection
-    webstomp.connect.and.callFake((headers, callback, errorCallback) => errorCallback(new Error('Oops!')));
+    webstomp.connect.and.callFake(
+      (headers: { [key: string]: string }, callback: Function, errorCallback: Function) => errorCallback(new Error('Oops!'))
+    );
 
     // then we should have an error in the observable
     messages.subscribe(
@@ -63,7 +65,7 @@ describe('WsService', () => {
     // given a fake WebSocket connection
     webstomp.over.and.returnValue(webstomp);
     // returning a subscription
-    webstomp.connect.and.callFake((headers, callback) => callback());
+    webstomp.connect.and.callFake((headers: { [key: string]: string }, callback: Function) => callback());
     const fakeSubscription = jasmine.createSpyObj('Subscription', ['unsubscribe']);
     webstomp.subscribe.and.returnValue(fakeSubscription);
 
